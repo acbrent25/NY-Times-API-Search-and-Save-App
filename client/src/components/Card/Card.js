@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 const Card = (props) => {
     return (
@@ -6,10 +6,10 @@ const Card = (props) => {
             <div className="row">
                 <div className="col md-8">
                     <div className="card">
-                        <div class="card-header">
+                        <div className="card-header">
                             {props.title}
                         </div>
-                        <div class="card-body">
+                        <div className="card-body">
                             {props.children}
                         </div>
                     </div>
