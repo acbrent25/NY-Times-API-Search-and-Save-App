@@ -36,7 +36,7 @@ class Saved extends Component {
   render() {
     return (
         <Row>
-          <Col size="md-12">
+          <Col size="col-md-12">
             {this.state.articles.length ? (
               <List>
                 {this.state.articles.map(article => (

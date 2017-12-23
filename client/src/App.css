@@ -1,0 +1,24 @@
+body {
+    font-family: 'Ubuntu Condensed', sans-serif;
+}
+
+.anton {
+    font-family: 'Anton', sans-serif;
+}
+
+.blue {
+    color: #00b2db;
+}
+
+.shadow {
+    text-shadow: 1px .5px 1px rgb(104, 104, 104);
+}
+
+.container-fluid {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+* {
+    border-radius: 0 !important;
+  }

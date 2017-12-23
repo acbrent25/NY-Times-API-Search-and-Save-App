@@ -5,22 +5,22 @@ import { Link } from 'react-router-dom';
 import { Col, Row, Container } from '../../components/Grid';
 import { List, ListItem } from '../../components/List';
 import { Input, TextArea, FormBtn } from '../../components/Form';
+import './Main.css'
+
 
 class Main extends Component {
   state = {
     articles: [],
     queryTerm: '',
-    beginDate: '',
-    endDate: ''
   };
 
   getArticles = () => {
     let query = `${this.state.queryTerm}`;
-    if (this.state.beginDate) {
-      query = `${query}&begin_date=${this.state.beginDate}`;
+    if (this.state.startDate) {
+      query = `${query}&begin_date=${this.state.startDate}0101`;
     }
     if (this.state.endDate) {
-      query = `${query}&end_date=${this.state.endDate}`;
+      query = `${query}&end_date=${this.state.endDate}1231`;
     }
 
     API.nytSearch(query)
@@ -29,14 +29,14 @@ class Main extends Component {
         this.setState({
           articles: res.data.response.docs,
           queryTerm: '',
-          beginDate: '',
+          startDate: '',
           endDate: ''
         });
       })
       .catch(err => console.log(err));
   };
 
- 
+
   saveArticle = articleInfo => {
     API.saveArticle(articleInfo)
       .then(res => {
@@ -64,61 +64,91 @@ class Main extends Component {
 
   render() {
     return (
+      <div>
         <Row>
-          <Col size="md-3">
-            <Jumbotron>
-              <h1>Search for a topic.</h1>
+          <Col size="col-md-12">
+            <Jumbotron id="main-tron">
+              <div className="overlay">
+              <h1 className="text-center">Search for a topic</h1>
+              <Row>
+                <Container>
+                  <Col size="col-md-12" id="search">
+                    <form>
+                      <Row>
+                        <Col size="col-md-4">
+                          <Input
+                            value={this.state.queryTerm}
+                            onChange={this.handleInputChange}
+                            name="queryTerm"
+                            placeholder="Topic (required)"
+                          />
+                        </Col>
+
+                        <Col size="col-md-3">
+                          <Input
+                            value={this.state.startDate}
+                            onChange={this.handleInputChange}
+                            name="startDate"
+                            placeholder="Start Year: (2016)"
+                          />
+                        </Col>
+
+
+                        <Col size="col-md-3">
+                          <Input
+                            value={this.state.endDate}
+                            onChange={this.handleInputChange}
+                            name="endDate"
+                            placeholder="End Year: (2017)"
+                          />
+
+                        </Col>
+
+                        <Col size="col-md-2">
+                          <FormBtn disabled={!this.state.queryTerm} onClick={this.handleFormSubmit}>
+                            Submit Search
+                          </FormBtn>
+                        </Col>
+                      </Row>
+                    </form>
+                  </Col>
+                </Container>
+              </Row>
+              </div>
             </Jumbotron>
-            <form>
-              <Input
-                value={this.state.queryTerm}
-                onChange={this.handleInputChange}
-                name="queryTerm"
-                placeholder="Topic (required)"
-              />
-              <Input
-                value={this.state.beginDate}
-                onChange={this.handleInputChange}
-                name="beginDate"
-                placeholder="Begin Date (Optional - in YYYYMMDD)"
-              />
-              <Input
-                value={this.state.endDate}
-                onChange={this.handleInputChange}
-                name="endDate"
-                placeholder="End Date (Optional - in YYYYMMDD)"
-              />
-              <FormBtn disabled={!this.state.queryTerm} onClick={this.handleFormSubmit}>
-                Submit Search
-              </FormBtn>
-            </form>
-          </Col>
-          <Col size="md-9">
-            <Jumbotron>
-              <h1>Article Results</h1>
-            </Jumbotron>
-            {this.state.articles.length ? (
-              <List>
-                {this.state.articles.map(article => (
-                  <ListItem key={article._id}>
-                    <a href={article.web_url} target="_blank">
-                      <strong>{article.headline.main}</strong>
-                    </a>
-                    <br/>
-                    <span>Published on {article.pub_date}</span>
-                    <button className="btn btn-primary" style={{float: "right"}} onClick={() => this.saveArticle({
-                      title: article.headline.main,
-                      url: article.web_url, 
-                      date: article.pub_date
-                    })}> Save Article </button> 
-                  </ListItem>
-                ))}
-              </List>
-            ) : (
-              <h3>No Results to Display</h3>
-            )}
           </Col>
         </Row>
+
+        <Container>
+          <Row>
+            <Col size="col-md-12">
+              <Jumbotron id="results-tron">
+                <h1>Article Results</h1>
+              </Jumbotron>
+              {this.state.articles.length ? (
+                <List>
+                  {this.state.articles.map(article => (
+                    <ListItem key={article._id}>
+                      <a href={article.web_url} target="_blank">
+                        <strong>{article.headline.main}</strong>
+                      </a>
+                      <br />
+                      <span>Published on {article.pub_date}</span>
+                      <button className="btn btn-primary" style={{ float: "right" }} onClick={() => this.saveArticle({
+                        title: article.headline.main,
+                        url: article.web_url,
+                        date: article.pub_date
+                      })}> Save Article </button>
+                    </ListItem>
+                  ))}
+                </List>
+              ) : (
+                  <h3>No Results to Display</h3>
+                )}
+            </Col>
+          </Row>
+        </Container>
+      </div>
     );
   }
 }

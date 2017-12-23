@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Span from '../Span/Span';
+import './Nav.css'
 
 const Nav = () => (
   <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
     <Link className="navbar-brand" to="/">
-      NYT React App
+     <div className="shadow"> NYT<span className="blue">SEARCH</span></div>
     </Link>
     <button
       className="navbar-toggler"
@@ -17,7 +19,7 @@ const Nav = () => (
     >
       <span className="navbar-toggler-icon" />
     </button>
-    <div className="collapse navbar-collapse" id="navbarNav">
+    <div className="collapse navbar-collapse ml-auto" id="navbarNav">
       <ul className="navbar-nav">
         <li className="nav-item">
           <Link className="nav-link" to="/">

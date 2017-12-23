@@ -5,10 +5,11 @@ import Main from './pages/Main';
 import Saved from './pages/Saved';
 import NoMatch from './pages/NoMatch';
 import Nav from './components/Nav';
+import './App.css'
 
 const App = () => (
   <Router>
-    <Container >
+    <Container fluid >
       <Nav />
       <Switch>
         <Route exact path="/" component={Main} />
