@@ -35,17 +35,21 @@ class Saved extends Component {
 
   render() {
     return (
-        <Row>
-          <Col size="col-md-12">
+        <Row id="saved">
+          <Col size="col-md-8 col-sm-12 m-auto">
             {this.state.articles.length ? (
               <List>
                 {this.state.articles.map(article => (
                   <ListItem key={article._id}>
+                  <Row>
+                    <Col size="col-md-8 col-xs-12">
                     <a href={article.url} target="_blank">
                       <strong>{article.title}</strong>
                     </a>
                     <br />
                     <span>Published on {article.date}</span>
+                    </Col>
+                    <Col size="col-md-4 col-xs-12">
                     <button
                       className="btn btn-danger"
                       style={{ float: 'right' }}
@@ -53,6 +57,8 @@ class Saved extends Component {
                     >
                       Delete Article
                     </button>
+                    </Col>
+                  </Row>
                   </ListItem>
                 ))}
               </List>

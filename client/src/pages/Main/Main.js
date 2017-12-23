@@ -69,76 +69,87 @@ class Main extends Component {
           <Col size="col-md-12">
             <Jumbotron id="main-tron">
               <div className="overlay">
-              <h1 className="text-center">Search for a topic</h1>
-              <Row>
-                <Container>
-                  <Col size="col-md-12" id="search">
-                    <form>
-                      <Row>
-                        <Col size="col-md-4">
-                          <Input
-                            value={this.state.queryTerm}
-                            onChange={this.handleInputChange}
-                            name="queryTerm"
-                            placeholder="Topic (required)"
-                          />
-                        </Col>
+                <h1 className="text-center">Search for a topic</h1>
+                <Row>
+                  <Container>
+                    <Col size="col-md-12" id="search">
+                      <form>
+                        <Row>
+                          <Col size="col-md-4">
+                            <Input
+                              value={this.state.queryTerm}
+                              onChange={this.handleInputChange}
+                              name="queryTerm"
+                              placeholder="Topic (required)"
+                            />
+                          </Col>
 
-                        <Col size="col-md-3">
-                          <Input
-                            value={this.state.startDate}
-                            onChange={this.handleInputChange}
-                            name="startDate"
-                            placeholder="Start Year: (2016)"
-                          />
-                        </Col>
+                          <Col size="col-md-3">
+                            <Input
+                              value={this.state.startDate}
+                              onChange={this.handleInputChange}
+                              name="startDate"
+                              placeholder="Start Year: (2016)"
+                            />
+                          </Col>
 
 
-                        <Col size="col-md-3">
-                          <Input
-                            value={this.state.endDate}
-                            onChange={this.handleInputChange}
-                            name="endDate"
-                            placeholder="End Year: (2017)"
-                          />
+                          <Col size="col-md-3">
+                            <Input
+                              value={this.state.endDate}
+                              onChange={this.handleInputChange}
+                              name="endDate"
+                              placeholder="End Year: (2017)"
+                            />
 
-                        </Col>
+                          </Col>
 
-                        <Col size="col-md-2">
-                          <FormBtn disabled={!this.state.queryTerm} onClick={this.handleFormSubmit}>
-                            Submit Search
+                          <Col size="col-md-2">
+                            <FormBtn disabled={!this.state.queryTerm} onClick={this.handleFormSubmit}>
+                              Submit Search
                           </FormBtn>
-                        </Col>
-                      </Row>
-                    </form>
-                  </Col>
-                </Container>
-              </Row>
+                          </Col>
+                        </Row>
+                      </form>
+                    </Col>
+                  </Container>
+                </Row>
               </div>
             </Jumbotron>
           </Col>
         </Row>
 
+
+        <Row>
+          <Col size="col-md-12">
+            <Jumbotron id="results-tron">
+              <h1>Article Results</h1>
+            </Jumbotron>
+          </Col>
+        </Row>
         <Container>
           <Row>
-            <Col size="col-md-12">
-              <Jumbotron id="results-tron">
-                <h1>Article Results</h1>
-              </Jumbotron>
+            <Col size="col-md-8 m-auto">
               {this.state.articles.length ? (
                 <List>
                   {this.state.articles.map(article => (
                     <ListItem key={article._id}>
+                    <Row>
+                    <Col size="col-md-8">
                       <a href={article.web_url} target="_blank">
                         <strong>{article.headline.main}</strong>
                       </a>
                       <br />
                       <span>Published on {article.pub_date}</span>
+                    </Col>
+                    <Col size="col-md-4">
                       <button className="btn btn-primary" style={{ float: "right" }} onClick={() => this.saveArticle({
                         title: article.headline.main,
                         url: article.web_url,
                         date: article.pub_date
                       })}> Save Article </button>
+                    </Col>
+                  </Row>
                     </ListItem>
                   ))}
                 </List>
@@ -148,6 +159,8 @@ class Main extends Component {
             </Col>
           </Row>
         </Container>
+
+
       </div>
     );
   }
