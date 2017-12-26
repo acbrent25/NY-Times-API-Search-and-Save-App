@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 // Serve up static assets
 
-app.use('/static', express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(path.join(__dirname, "client", "build")))
 // Add routes, both API and view
 app.use(routes);
 
@@ -37,6 +37,10 @@ if (process.env.MONGODB_URI) {
 //     useMongoClient: true
 //   }
 // );
+
+app.get("*", (req, res) => {  
+  res.sendFile(path.join(__dirname, "build", "client", "index.html"));
+});
 
 // Start the API server
 app.listen(PORT, function() {
