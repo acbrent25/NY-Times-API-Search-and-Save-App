@@ -13,15 +13,28 @@ app.use(express.static("client/build"));
 // Add routes, both API and view
 app.use(routes);
 
-// Set up promises with mongoose
-mongoose.Promise = global.Promise;
-// Connect to the Mongo DB
-mongoose.connect(
-  process.env.MONGODB_URI || "mongodb://localhost/nytreact",
-  {
-    useMongoClient: true
-  }
-);
+
+var databaseUri = 'mongodb://localhost/nytreact'
+
+if (process.env.MONGODB_URI) {
+  mongoose.connect('mongodb://acbrent25:20_Nicholas05@ds163806.mlab.com:63806/heroku_32180vqb');
+} else {
+  mongoose.connect(databaseUri);
+}
+
+
+
+
+
+// // Set up promises with mongoose
+// mongoose.Promise = global.Promise;
+// // Connect to the Mongo DB
+// mongoose.connect(
+//   process.env.MONGODB_URI || "mongodb://localhost/nytreact",
+//   {
+//     useMongoClient: true
+//   }
+// );
 
 // Start the API server
 app.listen(PORT, function() {
